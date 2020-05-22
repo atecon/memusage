@@ -37,7 +37,8 @@ end function
 
 function scalar memusage_string (const string s,
 								const bool print_value[FALSE])
-	/* Compute memory usage of a string.
+	/* Compute (approximate) memory usage of a string. If ASCII, one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character.
+
 	return: scalar, in MB */
 
 	scalar memory = memusage_series_matrix_string(nelem(s))
@@ -107,19 +108,19 @@ function scalar memusage_list (const list L,
 end function
 
 
-function scalar memusage_series_matrix_string (const int num_floats)
+function scalar memusage_series_matrix_string (const int n_vals)
 	/* Compute memory usage.
 	return: scalar, Usage in megabytes. */
 
-	return size_in_mb(num_floats)
+	return size_in_mb(n_vals)
 end function
 
 
-function scalar size_in_mb (const scalar n_floats)
+function scalar size_in_mb (const int n_vals)
 	/* Compute for a number of floating values, the associated memory on megabytes. Gretl stores matrix in double-precision format. Each float is of size 8 byte. Thus, the matrix will consume <(100000 * 32 * 8) / 1024 / 1024 = 24.4 MB>.
 	return: scalar, size of object in MB */
 
-	return (n_floats * 8) / 1024 / 1024
+	return (n_vals * 8) / 1024 / 1024
 end function
 
 

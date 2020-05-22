@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gretl-functions>
+<gretl-function-package name="memusage" no-data-ok="true" minver="2020b">
+<author email="atecon@posteo.de">Artur Tarassow</author>
+<version>0.9</version>
+<date>2020-05-22</date>
+<description>Compute memory usage of gretl objects</description>
+<tags>C81</tags>
+<help>
+This package computes the memory usage of a gretl object.
+
+Please ask questions and report bugs on the gretl mailing list if possible. Alternatively, open an issue ticket on my github repo.
+Source code and test script(s) can be found here:
+https://github.com/atecon/memusage
+
+The package comprises seven public functions for computing memory usage (in megabytes) of either a series, a list of series, a matrix, an array of matrices, a string, an array of strings and all items of a bundle.
+
+
+PUBLIC FUNCTIONS:
+-----------------------------------------------------------------------
+Function:       memusage_matrix()
+Arguments:      matrix, input matrix
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
+
+Return:
+Computes the memory usage of a matrix in megabytes.
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+Function:       memusage_matrices()
+Arguments:      matrices, input array of matrices
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
+
+Return:
+Computes the memory usage of an array of matrices in megabytes.
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+Function:       memusage_series()
+Arguments:      series, input series
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
+
+Return:
+Computes the memory usage of a series in megabytes.
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+Function:       memusage_list()
+Arguments:      list, list of series
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
+
+Return:
+Computes the memory usage of a list of series in megabytes.
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+Function:       memusage_bundle()
+Arguments:      bundle, input bundle
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
+
+Return:
+Computes the memory usage of all items of a bundle in megabytes.
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+Function:       memusage_string()
+Arguments:      string, input string
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
+
+Return:
+Computes the memory usage of a string in megabytes. Note: If unicode formats is ASCII, the memory usage is one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character. We will always assume one by per character.
+
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+Function:       memusage_strings()
+Arguments:      strings, array of input strings
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
+
+Return:
+Computes the memory usage of an array of strings in megabytes. Note: If unicode formats is ASCII, the memory usage is one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character. We will always assume one by per character.
+-----------------------------------------------------------------------
+
+
+
+Changelog:
+- v0.9, May 2020:
+	+ initial release
+</help>
+<gretl-function name="memusage_string" type="scalar">
+ <params count="2">
+  <param name="s" type="string" const="true"/>
+  <param name="print_value" type="bool" default="0" const="true"/>
+ </params>
+<code>/* Compute (approximate) memory usage of a string. If ASCII, one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character.
+return: scalar, in MB */
+scalar memory = memusage_series_matrix_string(nelem(s))
+print_memusage(argname(s), memory, &quot;string&quot;, print_value)
+return memory
+</code>
+</gretl-function>
+<gretl-function name="memusage_strings" type="scalar">
+ <params count="2">
+  <param name="s" type="strings" const="true"/>
+  <param name="print_value" type="bool" default="0" const="true"/>
+ </params>
+<code>/* Compute memory usage of a string array.
+return: scalar, in MB */
+string str
+loop foreach i s
+  str += s[i]
+endloop
+scalar memory = memusage_series_matrix_string(nelem(s))
+print_memusage(argname(s), memory, &quot;strings&quot;, print_value)
+return memory
+</code>
+</gretl-function>
+<gretl-function name="memusage_matrix" type="scalar">
+ <params count="2">
+  <param name="m" type="matrix" const="true"/>
+  <param name="print_value" type="bool" default="0" const="true"/>
+ </params>
+<code>/* Compute memory usage of matrix.
+return: scalar, in MB */
+scalar memory = memusage_series_matrix_string(nelem(m))
+print_memusage(argname(m), memory, &quot;matrix&quot;, print_value)
+return memory
+</code>
+</gretl-function>
+<gretl-function name="memusage_matrices" type="scalar">
+ <params count="2">
+  <param name="M" type="matrices" const="true"/>
+  <param name="print_value" type="bool" default="0" const="true"/>
+ </params>
+<code>/* Compute memory usage of an array of matrices.
+return: scalar, in MB */
+# TODO how much memory does NA use?
+scalar memory = 0
+loop foreach i M
+  memory += memusage_series_matrix_string(nelem(M[i]))
+endloop
+print_memusage(argname(M), memory, &quot;matrices&quot;, print_value)
+return memory
+</code>
+</gretl-function>
+<gretl-function name="memusage_series" type="scalar">
+ <params count="2">
+  <param name="y" type="series" const="true"/>
+  <param name="print_value" type="bool" default="0" const="true"/>
+ </params>
+<code>/* Compute memory usage of series.
+return: scalar, in MB */
+# TODO how much memory does NA use?
+scalar memory = memusage_series_matrix_string(nobs(y))
+print_memusage(argname(y), memory, &quot;series&quot;, print_value)
+return memory
+</code>
+</gretl-function>
+<gretl-function name="memusage_list" type="scalar">
+ <params count="2">
+  <param name="L" type="list" const="true"/>
+  <param name="print_value" type="bool" default="0" const="true"/>
+ </params>
+<code>/* Compute memory usage of all list members.
+return: scalar, in MB */
+# TODO how much memory does NA use?
+scalar memory = 0
+loop foreach i L
+  memory += memusage_series_matrix_string(nobs(L.$i))
+endloop
+print_memusage(argname(L), memory, &quot;list&quot;, print_value)
+return memory
+</code>
+</gretl-function>
+<gretl-function name="memusage_bundle" type="scalar">
+ <params count="2">
+  <param name="b" type="bundle" const="true"/>
+  <param name="print_value" type="bool" default="0" const="true"/>
+ </params>
+<code>/* Compute memory usage of all items in a bundle.
+return: scalar, in MB */
+scalar memory = 0
+loop foreach i b
+  if typeof(b[&quot;$i&quot;]) == 1
+    memory += memusage_series_matrix_string(1)
+  elif typeof(b[&quot;$i&quot;]) == 2
+    memory += memusage_series(b[&quot;$i&quot;])
+  elif typeof(b[&quot;$i&quot;]) == 3
+    memory += memusage_matrix(b[&quot;$i&quot;])
+  elif typeof(b[&quot;$i&quot;]) == 4
+    memory += memusage_string(b[&quot;$i&quot;])
+  elif typeof(b[&quot;$i&quot;]) == 6
+    memory += memusage_strings(b[&quot;$i&quot;])
+  endif
+endloop
+print_memusage(argname(b), memory, &quot;bundle&quot;, print_value)
+return memory
+</code>
+</gretl-function>
+<gretl-function name="memusage_series_matrix_string" type="scalar" private="1">
+ <params count="1">
+  <param name="n_vals" type="int" const="true"/>
+ </params>
+<code>/* Compute memory usage.
+return: scalar, Usage in megabytes. */
+return size_in_mb(n_vals)
+</code>
+</gretl-function>
+<gretl-function name="size_in_mb" type="scalar" private="1">
+ <params count="1">
+  <param name="n_vals" type="int" const="true"/>
+ </params>
+<code>/* Compute for a number of floating values, the associated memory on megabytes. Gretl stores matrix in double-precision format. Each float is of size 8 byte. Thus, the matrix will consume &lt;(100000 * 32 * 8) / 1024 / 1024 = 24.4 MB&gt;.
+return: scalar, size of object in MB */
+return (n_vals * 8) / 1024 / 1024
+</code>
+</gretl-function>
+<gretl-function name="print_memusage" type="void" private="1">
+ <params count="4">
+  <param name="variable_name" type="string" const="true"/>
+  <param name="memory" type="scalar" const="true"/>
+  <param name="datatype" type="string" const="true"/>
+  <param name="print_value" type="bool" const="true"/>
+ </params>
+<code>/* Print memory usage.
+return: void */
+if print_value == TRUE
+  printf &quot;\nInfo: Size of %s %s: %g MB.\n&quot;, datatype, variable_name, memory
+endif
+</code>
+</gretl-function>
+<sample-script>
+set verbose off
+clear
+open denmark.gdt -q
+include &quot;./memusage.inp&quot; --force
+
+# Define some objects
+strings S = defarray(&quot;S1&quot;, &quot;S2&quot;)
+matrix m = ones(10^5, 32)
+matrices M = defarray(ones(10^5, 32), ones(3,2))
+string web_page = readfile(&quot;http://gretl.sourceforge.net/&quot;)
+bundle b = defbundle(&quot;S&quot;, S, &quot;m&quot;, m, &quot;web_page&quot;, web_page,\
+	&quot;LRM&quot;, LRM)
+list L = LRM LRY IDE IBO
+
+# Compute memory usage
+eval memusage_string(web_page, TRUE)
+eval memusage_strings(S, 1)
+eval memusage_matrix(m, TRUE)
+eval memusage_matrices(M, TRUE)
+eval memusage_series(LRM, TRUE)
+eval memusage_list(L, TRUE)
+eval memusage_bundle(b, TRUE)
+</sample-script>
+</gretl-function-package>
+</gretl-functions>

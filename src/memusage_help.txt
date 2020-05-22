@@ -1,70 +1,86 @@
-This package returns country specific holidays in an easy manner. Currently the package comprises holidays for Germany only. However, some events -- such as Christmas days -- are also valid for many other countries.
+This package computes the memory usage of a gretl object.
 
 Please ask questions and report bugs on the gretl mailing list if possible. Alternatively, open an issue ticket on my github repo.
 Source code and test script(s) can be found here:
-https://github.com/atecon/holidays
+https://github.com/atecon/memusage
 
-The package comprises four public functions. First, the user calls the holiday() function for obtaining a bundle of various binary series named according to a specific holiday. Second, the get_list_of_holidays() function is a convenience function, and appends the list of series from the previously returned bundle to the current data set. You may specify a string array for retrieving only specific holiday series. Third, the print_names_of_holidays() function simply prints all holidays in the compiled bundle. Fourth, the get_names_of_holidays() function returns a string array including the names of holidays compiled.
-
-Note: The package only works if a time-series data set with periodicity 7 days is active. In case your active time-series data set has a 5 days periodicity, you may join the 7 days time-series to it.
-Also, if you actually want to make use of holidays series for a panel data set, you need to join these to your panel data set by means of gretl's "join" or "append" command.
+The package comprises seven public functions for computing memory usage (in megabytes) of either a series, a list of series, a matrix, an array of matrices, a string, an array of strings and all items of a bundle.
 
 
 PUBLIC FUNCTIONS:
 -----------------------------------------------------------------------
-Function:       holidays()
-Arguments:      country_name (string, e.g. 'de')
-Output:	        bundle
+Function:       memusage_matrix()
+Arguments:      matrix, input matrix
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
 
 Return:
-Bundle comprising a binary time-series for each holiday. The binary series takes the value of one if the specific holiday occurs at a certain date, otherwise zero.
+Computes the memory usage of a matrix in megabytes.
 -----------------------------------------------------------------------
 
 -----------------------------------------------------------------------
-Function:       get_list_of_holidays()
-Arguments:      B (bundle returned by holidays() function)
-                S (some arbitrary series of the active data set)
-                hd (string array of holiday series to return, optional)
-Output:         list
+Function:       memusage_matrices()
+Arguments:      matrices, input array of matrices
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
 
 Return:
-This convenience function appends all series of holidays in the bundle returned by the holidays() function to the active time-series data set. If one wants to retrieve only specific holidays, these can be defined by the optional string array 'hd'.
+Computes the memory usage of an array of matrices in megabytes.
 -----------------------------------------------------------------------
 
 -----------------------------------------------------------------------
-Function:       get_names_of_holidays()
-Arguments:      B (bundle returned by holidays() function)
-Output:         string array
+Function:       memusage_series()
+Arguments:      series, input series
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
 
 Return:
-This convenience function returns a string array holding all names of holidays compiled after having called holidays() function.
+Computes the memory usage of a series in megabytes.
 -----------------------------------------------------------------------
 
 -----------------------------------------------------------------------
-Function:       print_names_of_holidays()
-Arguments:      B (bundle returned by holidays() function)
-Output:         none
+Function:       memusage_list()
+Arguments:      list, list of series
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
 
 Return:
-This convenience function print the unique names of holidays compiled after having called holidays() function.
+Computes the memory usage of a list of series in megabytes.
 -----------------------------------------------------------------------
 
+-----------------------------------------------------------------------
+Function:       memusage_bundle()
+Arguments:      bundle, input bundle
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
 
-================
-Adding holidays
-================
-Currently the package provides holidays only for Germany. If you would like to add holiday information for other countries that would be great! These are the steps to be done in case you want to add holidays for a new country:
+Return:
+Computes the memory usage of all items of a bundle in megabytes.
+-----------------------------------------------------------------------
 
-1) Add a two-letter country flag to the 'countries' string array in
-function countries_supported().
-2) Add the corresponding case to the get_holidays() function.
-3) Copy the days_with_fixed_date_de() function, name your new function days_with_fixed_date_<COUNTRYFLAG>() and define your set of holidays accordingly.
-4) Copy the days_related_to_eastern_de function, name your new function days_related_to_eastern_<COUNTRYFLAG>() and define your set of holidays accordingly.
+-----------------------------------------------------------------------
+Function:       memusage_string()
+Arguments:      string, input string
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
 
-I recommend you to fork the source code from the github repo (https://github.com/atecon/holidays) and to send a pull request to me. However, if you are not familiar with the versioning tool git, you may contact me via email: <atecon@posteo.de>
+Return:
+Computes the memory usage of a string in megabytes. Note: If unicode formats is ASCII, the memory usage is one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character. We will always assume one by per character.
+
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+Function:       memusage_strings()
+Arguments:      strings, array of input strings
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
+
+Return:
+Computes the memory usage of an array of strings in megabytes. Note: If unicode formats is ASCII, the memory usage is one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character. We will always assume one by per character.
+-----------------------------------------------------------------------
 
 
 
 Changelog:
-- v0.1, May 2020:
+- v0.9, May 2020:
 	+ initial release
