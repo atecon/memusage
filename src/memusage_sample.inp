@@ -1,0 +1,20 @@
+set verbose off
+clear
+open denmark.gdt -q
+include "./memusage.inp" --force
+
+strings S = defarray("S1", "S2")
+matrix m = ones(10^5, 32)
+matrices M = defarray(ones(10^5, 32), ones(3,2))
+string web_page = readfile("http://gretl.sourceforge.net/")
+eval memusage_strings(S, 1)
+eval memusage_matrix(m, TRUE)
+eval memusage_matrices(M, TRUE)
+eval memusage_series(LRM, TRUE)
+eval memusage_string(web_page, TRUE)
+
+bundle b = defbundle("S", S, "m", m, "web_page", web_page, "LRM", LRM)
+eval memusage_bundle(b, TRUE)
+
+list L = LRM LRY IDE IBO
+eval memusage_list(L, TRUE)

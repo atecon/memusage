@@ -1,0 +1,136 @@
+function scalar memusage_bundle (const bundle b,
+								const bool print_value[FALSE])
+	/* Compute memory usage of all items in a bundle.
+	return: scalar, in MB */
+
+	scalar memory = 0
+	loop foreach i b
+		if typeof(b["$i"]) == 1
+			memory += memusage_series_matrix_string(1)
+		elif typeof(b["$i"]) == 2
+			memory += memusage_series(b["$i"])
+		elif typeof(b["$i"]) == 3
+			memory += memusage_matrix(b["$i"])
+		elif typeof(b["$i"]) == 4
+			memory += memusage_string(b["$i"])
+		elif typeof(b["$i"]) == 6
+			memory += memusage_strings(b["$i"])
+		endif
+	endloop
+
+	print_memusage(argname(b), memory, "bundle", print_value)
+
+	return memory
+end function
+
+
+function scalar memusage_matrix (const matrix m,
+								const bool print_value[FALSE])
+	/* Compute memory usage of matrix.
+	return: scalar, in MB */
+
+	scalar memory = memusage_series_matrix_string(nelem(m))
+	print_memusage(argname(m), memory, "matrix", print_value)
+
+	return memory
+end function
+
+function scalar memusage_string (const string s,
+								const bool print_value[FALSE])
+	/* Compute memory usage of a string.
+	return: scalar, in MB */
+
+	scalar memory = memusage_series_matrix_string(nelem(s))
+	print_memusage(argname(s), memory, "string", print_value)
+
+	return memory
+end function
+
+function scalar memusage_strings (const strings s,
+								const bool print_value[FALSE])
+	/* Compute memory usage of a string array.
+	return: scalar, in MB */
+
+	string str
+	loop foreach i s
+		str += s[i]
+	endloop
+	scalar memory = memusage_series_matrix_string(nelem(s))
+	print_memusage(argname(s), memory, "strings", print_value)
+
+	return memory
+end function
+
+
+# TODO: How does a string-valued series behave?
+function scalar memusage_series (const series y,
+								const bool print_value[FALSE])
+	/* Compute memory usage of series.
+	return: scalar, in MB */
+
+	# TODO how much memory does NA use?
+	scalar memory = memusage_series_matrix_string(nobs(y))
+	print_memusage(argname(y), memory, "series", print_value)
+
+	return memory
+end function
+
+function scalar memusage_matrices (const matrices M,
+									const bool print_value[FALSE])
+	/* Compute memory usage of an array of matrices.
+	return: scalar, in MB */
+
+	# TODO how much memory does NA use?
+	scalar memory = 0
+	loop foreach i M
+		memory += memusage_series_matrix_string(nelem(M[i]))
+	endloop
+	print_memusage(argname(M), memory, "matrices", print_value)
+
+	return memory
+end function
+
+
+function scalar memusage_list (const list L,
+								const bool print_value[FALSE])
+	/* Compute memory usage of all list members.
+	return: scalar, in MB */
+
+	# TODO how much memory does NA use?
+	scalar memory = 0
+	loop foreach i L
+		memory += memusage_series_matrix_string(nobs(L.$i))
+	endloop
+	print_memusage(argname(L), memory, "list", print_value)
+
+	return memory
+end function
+
+
+function scalar memusage_series_matrix_string (const int num_floats)
+	/* Compute memory usage.
+	return: scalar, Usage in megabytes. */
+
+	return size_in_mb(num_floats)
+end function
+
+
+function scalar size_in_mb (const scalar n_floats)
+	/* Compute for a number of floating values, the associated memory on megabytes. Gretl stores matrix in double-precision format. Each float is of size 8 byte. Thus, the matrix will consume <(100000 * 32 * 8) / 1024 / 1024 = 24.4 MB>.
+	return: scalar, size of object in MB */
+
+	return (n_floats * 8) / 1024 / 1024
+end function
+
+
+function void print_memusage (const string variable_name,
+							const scalar memory,
+							const string datatype,
+							const bool print_value)
+	/* Print memory usage.
+	return: void */
+
+	if print_value == TRUE
+		printf "\nInfo: Size of %s %s: %g MB.\n", datatype, variable_name, memory
+	endif
+end function
