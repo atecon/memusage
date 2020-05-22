@@ -1,15 +1,14 @@
 set verbose off
 clear
 open denmark.gdt -q
-include "./memusage.inp" --force
+include memusage.gfn
 
 # Define some objects
 strings S = defarray("S1", "S2")
 matrix m = ones(10^5, 32)
 matrices M = defarray(ones(10^5, 32), ones(3,2))
 string web_page = readfile("http://gretl.sourceforge.net/")
-bundle b = defbundle("S", S, "m", m, "web_page", web_page,\
-	"LRM", LRM)
+bundle b = defbundle("S", S, "m", m, "web_page", web_page, "LRM", LRM)
 list L = LRM LRY IDE IBO
 
 # Compute memory usage

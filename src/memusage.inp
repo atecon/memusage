@@ -6,7 +6,7 @@ function scalar memusage_bundle (const bundle b,
 	scalar memory = 0
 	loop foreach i b
 		if typeof(b["$i"]) == 1
-			memory += memusage_series_matrix_string(1)
+			memory += compute_memory(1)
 		elif typeof(b["$i"]) == 2
 			memory += memusage_series(b["$i"])
 		elif typeof(b["$i"]) == 3
@@ -15,6 +15,8 @@ function scalar memusage_bundle (const bundle b,
 			memory += memusage_string(b["$i"])
 		elif typeof(b["$i"]) == 6
 			memory += memusage_strings(b["$i"])
+		elif typeof(b["$i"]) == 7
+			memory += memusage_list(b["$i"])
 		endif
 	endloop
 
@@ -29,7 +31,7 @@ function scalar memusage_matrix (const matrix m,
 	/* Compute memory usage of matrix.
 	return: scalar, in MB */
 
-	scalar memory = memusage_series_matrix_string(nelem(m))
+	scalar memory = compute_memory(nelem(m))
 	print_memusage(argname(m), memory, "matrix", print_value)
 
 	return memory
@@ -41,7 +43,7 @@ function scalar memusage_string (const string s,
 
 	return: scalar, in MB */
 
-	scalar memory = memusage_series_matrix_string(nelem(s))
+	scalar memory = compute_memory(nelem(s))
 	print_memusage(argname(s), memory, "string", print_value)
 
 	return memory
@@ -52,11 +54,11 @@ function scalar memusage_strings (const strings s,
 	/* Compute memory usage of a string array.
 	return: scalar, in MB */
 
-	string str
+	string str = ""
 	loop foreach i s
 		str += s[i]
 	endloop
-	scalar memory = memusage_series_matrix_string(nelem(s))
+	scalar memory = compute_memory(nelem(s))
 	print_memusage(argname(s), memory, "strings", print_value)
 
 	return memory
@@ -70,7 +72,7 @@ function scalar memusage_series (const series y,
 	return: scalar, in MB */
 
 	# TODO how much memory does NA use?
-	scalar memory = memusage_series_matrix_string(nobs(y))
+	scalar memory = compute_memory(nobs(y))
 	print_memusage(argname(y), memory, "series", print_value)
 
 	return memory
@@ -83,8 +85,8 @@ function scalar memusage_matrices (const matrices M,
 
 	# TODO how much memory does NA use?
 	scalar memory = 0
-	loop foreach i M
-		memory += memusage_series_matrix_string(nelem(M[i]))
+	loop i=1..nelem(M)
+		memory += compute_memory(nelem(M[i]))
 	endloop
 	print_memusage(argname(M), memory, "matrices", print_value)
 
@@ -100,7 +102,7 @@ function scalar memusage_list (const list L,
 	# TODO how much memory does NA use?
 	scalar memory = 0
 	loop foreach i L
-		memory += memusage_series_matrix_string(nobs(L.$i))
+		memory += compute_memory(nobs(L.$i))
 	endloop
 	print_memusage(argname(L), memory, "list", print_value)
 
@@ -108,7 +110,7 @@ function scalar memusage_list (const list L,
 end function
 
 
-function scalar memusage_series_matrix_string (const int n_vals)
+function scalar compute_memory (const int n_vals)
 	/* Compute memory usage.
 	return: scalar, Usage in megabytes. */
 

@@ -101,7 +101,7 @@ Changelog:
  </params>
 <code>/* Compute (approximate) memory usage of a string. If ASCII, one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character.
 return: scalar, in MB */
-scalar memory = memusage_series_matrix_string(nelem(s))
+scalar memory = compute_memory(nelem(s))
 print_memusage(argname(s), memory, &quot;string&quot;, print_value)
 return memory
 </code>
@@ -113,11 +113,11 @@ return memory
  </params>
 <code>/* Compute memory usage of a string array.
 return: scalar, in MB */
-string str
+string str = &quot;&quot;
 loop foreach i s
   str += s[i]
 endloop
-scalar memory = memusage_series_matrix_string(nelem(s))
+scalar memory = compute_memory(nelem(s))
 print_memusage(argname(s), memory, &quot;strings&quot;, print_value)
 return memory
 </code>
@@ -129,7 +129,7 @@ return memory
  </params>
 <code>/* Compute memory usage of matrix.
 return: scalar, in MB */
-scalar memory = memusage_series_matrix_string(nelem(m))
+scalar memory = compute_memory(nelem(m))
 print_memusage(argname(m), memory, &quot;matrix&quot;, print_value)
 return memory
 </code>
@@ -143,8 +143,8 @@ return memory
 return: scalar, in MB */
 # TODO how much memory does NA use?
 scalar memory = 0
-loop foreach i M
-  memory += memusage_series_matrix_string(nelem(M[i]))
+loop i=1..nelem(M)
+  memory += compute_memory(nelem(M[i]))
 endloop
 print_memusage(argname(M), memory, &quot;matrices&quot;, print_value)
 return memory
@@ -158,7 +158,7 @@ return memory
 <code>/* Compute memory usage of series.
 return: scalar, in MB */
 # TODO how much memory does NA use?
-scalar memory = memusage_series_matrix_string(nobs(y))
+scalar memory = compute_memory(nobs(y))
 print_memusage(argname(y), memory, &quot;series&quot;, print_value)
 return memory
 </code>
@@ -173,7 +173,7 @@ return: scalar, in MB */
 # TODO how much memory does NA use?
 scalar memory = 0
 loop foreach i L
-  memory += memusage_series_matrix_string(nobs(L.$i))
+  memory += compute_memory(nobs(L.$i))
 endloop
 print_memusage(argname(L), memory, &quot;list&quot;, print_value)
 return memory
@@ -189,7 +189,7 @@ return: scalar, in MB */
 scalar memory = 0
 loop foreach i b
   if typeof(b[&quot;$i&quot;]) == 1
-    memory += memusage_series_matrix_string(1)
+    memory += compute_memory(1)
   elif typeof(b[&quot;$i&quot;]) == 2
     memory += memusage_series(b[&quot;$i&quot;])
   elif typeof(b[&quot;$i&quot;]) == 3
@@ -198,13 +198,15 @@ loop foreach i b
     memory += memusage_string(b[&quot;$i&quot;])
   elif typeof(b[&quot;$i&quot;]) == 6
     memory += memusage_strings(b[&quot;$i&quot;])
+  elif typeof(b[&quot;$i&quot;]) == 7
+    memory += memusage_list(b[&quot;$i&quot;])
   endif
 endloop
 print_memusage(argname(b), memory, &quot;bundle&quot;, print_value)
 return memory
 </code>
 </gretl-function>
-<gretl-function name="memusage_series_matrix_string" type="scalar" private="1">
+<gretl-function name="compute_memory" type="scalar" private="1">
  <params count="1">
   <param name="n_vals" type="int" const="true"/>
  </params>
@@ -240,15 +242,14 @@ endif
 set verbose off
 clear
 open denmark.gdt -q
-include &quot;./memusage.inp&quot; --force
+include memusage.gfn
 
 # Define some objects
 strings S = defarray(&quot;S1&quot;, &quot;S2&quot;)
 matrix m = ones(10^5, 32)
 matrices M = defarray(ones(10^5, 32), ones(3,2))
 string web_page = readfile(&quot;http://gretl.sourceforge.net/&quot;)
-bundle b = defbundle(&quot;S&quot;, S, &quot;m&quot;, m, &quot;web_page&quot;, web_page,\
-	&quot;LRM&quot;, LRM)
+bundle b = defbundle(&quot;S&quot;, S, &quot;m&quot;, m, &quot;web_page&quot;, web_page, &quot;LRM&quot;, LRM)
 list L = LRM LRY IDE IBO
 
 # Compute memory usage
