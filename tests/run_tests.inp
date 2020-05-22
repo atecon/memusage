@@ -1,0 +1,272 @@
+set verbose off
+clear
+
+include "./src/holidays.inp" --force
+include assertion.gfn
+include string_utils.gfn
+
+nulldata 900
+setobs 7 2018-01-01 --time-series
+
+
+
+function void test_countries_supported (void)
+    print "Start countries_supported()"
+
+    strings countries = countries_supported()
+    assert_equal_num(nelem(countries), 1)
+    assert_equal_str(countries[1], "de")
+end function
+test_countries_supported()
+
+
+function void test_get_date_series (void)
+    print "Start get_date_series()"
+
+    bundle b = null
+    get_date_series(&b)
+    assert_equal_num(nelem(b), 3)
+    assert_true(inbundle(b, "year"))
+    assert_true(inbundle(b, "month"))
+    assert_true(inbundle(b, "day"))
+end function
+test_get_date_series()
+
+
+function void test_get_easter_sunday (void)
+    print "Start get_easter_sunday()"
+
+    series y, m, d
+  	isoconv($obsdate, &y, &m, &d)
+  	bundle b = defbundle("year", y, "month", m, "day", d)
+  	series easter_sunday = get_easter_sunday(b)
+
+  	assert_true(easter_sunday["2018-04-01"])
+  	assert_false(easter_sunday["2018-04-02"])
+    assert_true(easter_sunday["2019-04-21"])
+  	assert_false(easter_sunday["2019-04-22"])
+end function
+test_get_easter_sunday()
+
+
+function void test_days_related_to_eastern_de (void)
+    print "Start days_related_to_eastern_de()"
+
+    series y, m, d
+  	isoconv($obsdate, &y, &m, &d)
+  	bundle b = defbundle("year", y, "month", m, "day", d)
+  	days_related_to_eastern_de(&b)
+
+    assert_true(inbundle(b, "weiberfastnacht"))
+    assert_true(inbundle(b, "rosenmontag"))
+    assert_true(inbundle(b, "aschermittwoch"))
+  	assert_true(inbundle(b, "gruendonnerstag"))
+  	assert_true(inbundle(b, "karfreitag"))
+  	assert_true(inbundle(b, "ostermontag"))
+  	assert_true(inbundle(b, "christihimmelfahrt"))
+  	assert_true(inbundle(b, "pfingstsonntag"))
+  	assert_true(inbundle(b, "pfingstmontag"))
+  	assert_true(inbundle(b, "fronleichnam"))
+
+    series weiberfastnacht = b.weiberfastnacht
+    series rosenmontag = b.rosenmontag
+    series aschermittwoch = b.aschermittwoch
+  	series gruendonnerstag = b.gruendonnerstag
+  	series karfreitag = b.karfreitag
+  	series ostermontag = b.ostermontag
+  	series christihimmelfahrt = b.christihimmelfahrt
+  	series pfingstsonntag = b.pfingstsonntag
+  	series pfingstmontag = b.pfingstmontag
+
+    assert_true(weiberfastnacht["2018-02-08"])
+    assert_true(rosenmontag["2018-02-12"])
+    assert_true(aschermittwoch["2018-02-14"])
+  	assert_true(gruendonnerstag["2018-03-29"])
+  	assert_true(karfreitag["2018-03-30"])
+  	assert_true(ostermontag["2018-04-02"])
+  	assert_true(christihimmelfahrt["2018-05-10"])
+  	assert_true(pfingstsonntag["2018-05-20"])
+  	assert_true(pfingstmontag["2018-05-21"])
+
+    assert_true(weiberfastnacht["2019-02-28"])
+    assert_true(rosenmontag["2019-03-04"])
+    assert_true(aschermittwoch["2019-03-06"])
+  	assert_true(gruendonnerstag["2019-04-18"])
+  	assert_true(karfreitag["2019-04-19"])
+  	assert_true(ostermontag["2019-04-22"])
+  	assert_true(christihimmelfahrt["2019-05-30"])
+  	assert_true(pfingstsonntag["2019-06-09"])
+  	assert_true(pfingstmontag["2019-06-10"])
+end function
+test_days_related_to_eastern_de()
+
+
+function void test_days_with_fixed_date_de (void)
+    print "Start days_with_fixed_date_de()"
+
+    series y, m, d
+  	isoconv($obsdate, &y, &m, &d)
+  	bundle b = defbundle("year", y, "month", m, "day", d)
+  	days_with_fixed_date_de(&b)
+
+    assert_true(inbundle(b, "neujahr"))
+  	assert_true(inbundle(b, "silvester"))
+  	assert_true(inbundle(b, "erster_mai"))
+  	assert_true(inbundle(b, "weihnachtstag_1"))
+  	assert_true(inbundle(b, "weihnachtstag_2"))
+  	assert_true(inbundle(b, "tag_der_deutschen_einheit"))
+    assert_true(inbundle(b, "frauentag"))
+    assert_true(inbundle(b, "kindertag"))
+    assert_true(inbundle(b, "reformationstag"))
+    assert_true(inbundle(b, "allerheiligen"))
+    assert_true(inbundle(b, "nikolaus"))
+    assert_true(inbundle(b, "valentinstag"))
+
+    series neujahr = b.neujahr
+  	series silvester = b.silvester
+  	series erster_mai = b.erster_mai
+  	series weihnachtstag_1 = b.weihnachtstag_1
+  	series weihnachtstag_2 = b.weihnachtstag_2
+  	series tag_der_deutschen_einheit = b.tag_der_deutschen_einheit
+    series frauentag = b.frauentag
+    series kindertag = b.kindertag
+    series reformationstag = b.reformationstag
+    series allerheiligen = b.allerheiligen
+    series nikolaus = b.nikolaus
+    series valentinstag = b.valentinstag
+
+  	assert_true(neujahr["2018-01-01"])
+  	assert_true(silvester["2018-12-31"])
+  	assert_true(erster_mai["2018-05-01"])
+    assert_true(weihnachtstag_1["2018-12-25"])
+  	assert_true(weihnachtstag_2["2018-12-26"])
+  	assert_true(tag_der_deutschen_einheit["2018-10-03"])
+    assert_true(frauentag["2018-03-08"])
+    assert_true(kindertag["2018-06-01"])
+    assert_true(reformationstag["2018-10-31"])
+    assert_true(allerheiligen["2018-11-01"])
+    assert_true(nikolaus["2018-12-06"])
+    assert_true(valentinstag["2018-02-14"])
+
+  	assert_true(neujahr["2019-01-01"])
+  	assert_true(silvester["2019-12-31"])
+  	assert_true(erster_mai["2019-05-01"])
+  	assert_true(weihnachtstag_1["2019-12-25"])
+  	assert_true(weihnachtstag_2["2019-12-26"])
+  	assert_true(tag_der_deutschen_einheit["2019-10-03"])
+    assert_true(frauentag["2019-03-08"])
+    assert_true(kindertag["2019-06-01"])
+    assert_true(reformationstag["2019-10-31"])
+    assert_true(allerheiligen["2019-11-01"])
+    assert_true(nikolaus["2019-12-06"])
+    assert_true(valentinstag["2019-02-14"])
+end function
+test_days_with_fixed_date_de()
+
+
+function void test_sundays_of_advent (void)
+    print "Start sundays_of_advent()"
+
+    series y, m, d
+  	isoconv($obsdate, &y, &m, &d)
+  	bundle b = defbundle("year", y, "month", m, "day", d)
+  	sundays_of_advent(&b)
+
+    assert_true(inbundle(b, "advent_4"))
+  	assert_true(inbundle(b, "advent_3"))
+  	assert_true(inbundle(b, "advent_2"))
+  	assert_true(inbundle(b, "advent_1"))
+
+    series advent_1 = b.advent_1
+  	series advent_2 = b.advent_2
+  	series advent_3 = b.advent_3
+  	series advent_4 = b.advent_4
+
+  	assert_true(advent_1["2018-12-02"])
+  	assert_true(advent_2["2018-12-09"])
+  	assert_true(advent_3["2018-12-16"])
+    assert_true(advent_4["2018-12-23"])
+
+  	assert_true(advent_1["2019-12-01"])
+  	assert_true(advent_2["2019-12-08"])
+  	assert_true(advent_3["2019-12-15"])
+  	assert_true(advent_4["2019-12-22"])
+end function
+test_sundays_of_advent()
+
+
+function void test_holidays (void)
+    print "Start holidays()"
+
+  	catch bundle b = holidays("fr")
+  	eval $error
+
+  	bundle b = holidays("de")
+    assert_true(inbundle(b, "country"))
+  	assert_true(inbundle(b, "pfingstsonntag"))
+  	assert_true(inbundle(b, "pfingstmontag"))
+  	assert_true(inbundle(b, "ostersonntag"))
+    assert_true(inbundle(b, "karfreitag"))
+  	assert_true(inbundle(b, "fronleichnam"))
+  	assert_true(inbundle(b, "tag_der_deutschen_einheit"))
+  	assert_true(inbundle(b, "gruendonnerstag"))
+  	assert_true(inbundle(b, "pfingstmontag"))
+  	assert_true(inbundle(b, "erster_mai"))
+  	assert_true(inbundle(b, "weihnachtstag_1"))
+    assert_true(inbundle(b, "weihnachtstag_2"))
+  	assert_true(inbundle(b, "advent_1"))
+  	assert_true(inbundle(b, "advent_2"))
+  	assert_true(inbundle(b, "advent_3"))
+  	assert_true(inbundle(b, "advent_4"))
+  	assert_true(inbundle(b, "christihimmelfahrt"))
+  	assert_true(inbundle(b, "silvester"))
+    assert_true(inbundle(b, "neujahr"))
+    assert_true(inbundle(b, "frauentag"))
+    assert_true(inbundle(b, "kindertag"))
+    assert_true(inbundle(b, "reformationstag"))
+    assert_true(inbundle(b, "allerheiligen"))
+    assert_true(inbundle(b, "nikolaus"))
+    assert_true(inbundle(b, "valentinstag"))
+    assert_true(inbundle(b, "rosenmontag"))
+    assert_true(inbundle(b, "aschermittwoch"))
+end function
+test_holidays()
+
+
+function void test_get_list_of_holidays (const series y)
+  print "Start get_list_of_holidays()"
+
+	bundle b = holidays("de")
+	list L = get_list_of_holidays(b, y)
+	assert_true(nelem(L))
+end function
+series foo = normal()
+test_get_list_of_holidays(foo)
+
+
+function void test_get_list_of_holidays_some (const series y)
+  print "Start get_list_of_holidays: only subset()"
+
+  bundle b = holidays("de")
+  list L = get_list_of_holidays(b, y, defarray("advent_1", "kindertag"))
+  assert_equal_num(nelem(L), 2)
+end function
+series foo = normal()
+test_get_list_of_holidays_some(foo)
+
+
+function void test_get_names_of_holidays (void)
+  print "Start get_names_of_holidays()"
+
+  bundle b = holidays("de")
+  strings holiday_names = get_names_of_holidays(b)
+
+  assert_true(instrings(holiday_names, "neujahr"))
+  assert_false(nelem(instrings(holiday_names, "country")))
+end function
+test_get_names_of_holidays()
+
+
+
+
+printf "\nAll tests succesfully finished.\n"
