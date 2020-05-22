@@ -4,8 +4,20 @@
 		"selected_items":
 		[
 			[
+				"memusage_strin",
+				"memusage_string\t(memusage.inp)"
+			],
+			[
 				"mem",
-				"memusage_strings\t(memusage.inp)"
+				"memory\tabc"
+			],
+			[
+				"me",
+				"memory\t(memusage.inp)"
+			],
+			[
+				"ass",
+				"assert_equal_num\tabc"
 			],
 			[
 				"pr",
@@ -220,61 +232,11 @@
 	"buffers":
 	[
 		{
-			"file": "src/memusage.inp",
+			"file": "src/memusage_help.txt",
 			"settings":
 			{
-				"buffer_size": 2210,
-				"encoding": "UTF-8",
+				"buffer_size": 3612,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/memusage_sample.inp",
-			"settings":
-			{
-				"buffer_size": 312,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "gretl version 2020c-git\nCopyright Ramu Ramanathan, Allin Cottrell and Riccard​‌​\no \"Jack\" Lucchetti\nThis is free software with ABSOLUTELY NO WARRANTY\nCurrent session: 2020-05-22 20:04\n\n*** Warning ***\n*\n* gretl is built using OpenMP, but is linked against\n* OpenBLAS parallelized via pthreads. This combinatio​‌​\nn\n* of threading mechanisms is not recommended. Ideally​‌​\n,\n* OpenBLAS should also use OpenMP.\n\n\"help\" gives a list of commands\n /home/at/git/memusage/src/memusage_sample.inp\nRead datafile /usr/local/share/gretl/data/misc/denmar​‌​\nk.gdt\n3.0517578e-05\n\nInfo: Size of matrix : 24.4141 MB.\n24.414062\n\nInfo: Size of series LRM: 0.000419617 MB.\n0.0004196167\n\nInfo: Size of string web_page: 0.133804 MB.\n0.13380432\n? ",
-			"settings":
-			{
-				"buffer_size": 726,
-				"line_ending": "Unix",
-				"name": "Gretl CLI",
-				"scratch": true
-			}
-		},
-		{
-			"contents": "gretl version 2020c-git\nCopyright Ramu Ramanathan, Allin Cottrell and Riccard​‌​\no \"Jack\" Lucchetti\nThis is free software with ABSOLUTELY NO WARRANTY\nCurrent session: 2020-05-22 20:04\n\n*** Warning ***\n*\n* gretl is built using OpenMP, but is linked against\n* OpenBLAS parallelized via pthreads. This combinatio​‌​\nn\n* of threading mechanisms is not recommended. Ideally​‌​\n,\n* OpenBLAS should also use OpenMP.\n\n\"help\" gives a list of commands\n /home/at/git/memusage/src/memusage_sample.inp\nRead datafile /usr/local/share/gretl/data/misc/denmar​‌​\nk.gdt\n\nInfo: Size of string str: 3.05176e-05 MB.\n3.0517578e-05\n\nInfo: Size of matrix : 24.4141 MB.\n24.414062\n\nInfo: Size of series LRM: 0.000419617 MB.\n0.0004196167\n\nInfo: Size of string web_page: 0.133804 MB.\n0.13380432\n? ",
-			"settings":
-			{
-				"buffer_size": 769,
-				"line_ending": "Unix",
-				"name": "Gretl CLI",
-				"scratch": true
-			}
-		},
-		{
-			"contents": "gretl version 2020c-git\nCopyright Ramu Ramanathan, Allin Cottrell and Riccard​‌​\no \"Jack\" Lucchetti\nThis is free software with ABSOLUTELY NO WARRANTY\nCurrent session: 2020-05-22 20:05\n\n*** Warning ***\n*\n* gretl is built using OpenMP, but is linked against\n* OpenBLAS parallelized via pthreads. This combinatio​‌​\nn\n* of threading mechanisms is not recommended. Ideally​‌​\n,\n* OpenBLAS should also use OpenMP.\n\n\"help\" gives a list of commands\n /home/at/git/memusage/src/memusage_sample.inp\nRead datafile /usr/local/share/gretl/data/misc/denmar​‌​\nk.gdt\n\nInfo: Size of strings S: 1.52588e-05 MB.\n1.5258789e-05\n\nInfo: Size of matrix : 24.4141 MB.\n24.414062\n\nInfo: Size of series LRM: 0.000419617 MB.\n0.0004196167\n\nInfo: Size of string web_page: 0.133804 MB.\n0.13380432\n? ",
-			"settings":
-			{
-				"buffer_size": 768,
-				"line_ending": "Unix",
-				"name": "Gretl CLI",
-				"scratch": true
-			}
-		},
-		{
-			"contents": "gretl version 2020c-git\nCopyright Ramu Ramanathan, Allin Cottrell and Riccard​‌​\no \"Jack\" Lucchetti\nThis is free software with ABSOLUTELY NO WARRANTY\nCurrent session: 2020-05-22 20:04\n\n*** Warning ***\n*\n* gretl is built using OpenMP, but is linked against\n* OpenBLAS parallelized via pthreads. This combinatio​‌​\nn\n* of threading mechanisms is not recommended. Ideally​‌​\n,\n* OpenBLAS should also use OpenMP.\n\n\"help\" gives a list of commands\n /home/at/git/memusage/src/memusage_sample.inp\nRead datafile /usr/local/share/gretl/data/misc/denmar​‌​\nk.gdt\n3.0517578e-05\n\nInfo: Size of matrix : 24.4141 MB.\n24.414062\n\nInfo: Size of series LRM: 0.000419617 MB.\n0.0004196167\n\nInfo: Size of string web_page: 0.133804 MB.\n0.13380432\n? ",
-			"settings":
-			{
-				"buffer_size": 726,
-				"line_ending": "Unix",
-				"name": "Gretl CLI",
-				"scratch": true
 			}
 		}
 	],
@@ -372,10 +334,17 @@
 	"expanded_folders":
 	[
 		"/home/at/git/memusage",
-		"/home/at/git/memusage/src"
+		"/home/at/git/memusage/src",
+		"/home/at/git/memusage/tests"
 	],
 	"file_history":
 	[
+		"/home/at/git/memusage/src/memusage.inp",
+		"/home/at/git/memusage/src/memusage_sample.inp",
+		"/home/at/git/memusage/tests/run_tests.inp",
+		"/home/at/git/memusage/src/memusage.spec",
+		"/home/at/git/memusage/src/Makefile",
+		"/home/at/git/memusage/src/memusage_help.txt",
 		"/home/at/.config/sublime-text-3/Packages/User/hansl.sublime-syntax",
 		"/home/at/.config/sublime-text-3/Packages/User/ghosts.inp",
 		"/home/at/.config/sublime-text-3/Packages/User/BAK_hansl.sublime-syntax",
@@ -409,7 +378,7 @@
 	],
 	"find":
 	{
-		"height": 28.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{
@@ -423,6 +392,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"memusage_series_matrix_string",
+			"test_memusage_list",
+			"eval",
+			"num_floats",
+			"n_floats",
 			"memusage_series_matrix"
 		],
 		"highlight": true,
@@ -431,6 +405,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"compute_memory",
 			"memusage_series_matrix_string"
 		],
 		"reverse": false,
@@ -447,19 +422,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "src/memusage.inp",
+					"file": "src/memusage_help.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2210,
+						"buffer_size": 3612,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								957,
-								957
+								489,
+								489
 							]
 						],
 						"settings":
@@ -482,36 +457,16 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
@@ -522,23 +477,43 @@
 								"bh_default_open",
 								"bh_default_close",
 								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content"
+								"bh_curly_content"
 							],
-							"syntax": "Packages/User/hansl.sublime-syntax"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -546,457 +521,13 @@
 					},
 					"stack_index": 0,
 					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/memusage_sample.inp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 312,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								138,
-								138
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content"
-							],
-							"syntax": "Packages/User/hansl.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 3,
-			"sheets":
-			[
-				{
-					"buffer": 2,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 726,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								726,
-								726
-							]
-						],
-						"settings":
-						{
-							"__vi_external_disable": true,
-							"auto_complete": false,
-							"auto_complete_commit_on_tab": false,
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.clone_locations":
-							{
-							},
-							"bracket_highlighter.ignore": true,
-							"color_scheme": "Terminus.hidden-color-scheme",
-							"default_dir": "/home/at/git/memusage/src",
-							"draw_centered": false,
-							"draw_indent_guides": false,
-							"draw_unicode_white_space": false,
-							"draw_white_space": "none",
-							"gutter": false,
-							"highlight_line": false,
-							"is_widget": true,
-							"result_base_dir": "/home/at/git/memusage/src",
-							"result_file_regex": ".*Parse error at unexpected token '(.*)'",
-							"result_line_regex": null,
-							"scroll_past_end": true,
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"terminus_view": true,
-							"terminus_view.args":
-							{
-								"auto_close": true,
-								"cancellable": false,
-								"cmd":
-								[
-									"/usr/bin/env",
-									"bash",
-									"-c",
-									"gretlcli -e \"/home/at/git/memusage/src/memusage_sample.inp\""
-								],
-								"config_name": "Login Shell",
-								"cwd": "/home/at/git/memusage/src",
-								"env":
-								{
-									"LANG": "de_DE.UTF-8",
-									"TERM": "linux",
-									"TERMINUS_SUBLIME": "1",
-									"TERM_PROGRAM": "Terminus-Sublime"
-								},
-								"file_regex": ".*Parse error at unexpected token '(.*)'",
-								"line_regex": null,
-								"panel_name": null,
-								"tag": null,
-								"timeit": true,
-								"title": "Gretl CLI"
-							},
-							"terminus_view.cancellable": false,
-							"terminus_view.key.ctrl+k": true,
-							"terminus_view.key.ctrl+p": true,
-							"terminus_view.natural_keyboard": true,
-							"terminus_view.panel_name": null,
-							"terminus_view.tag": null,
-							"terminus_view.viewport_y": 0.0,
-							"word_wrap": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 769,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								769,
-								769
-							]
-						],
-						"settings":
-						{
-							"__vi_external_disable": true,
-							"auto_complete": false,
-							"auto_complete_commit_on_tab": false,
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.clone_locations":
-							{
-							},
-							"bracket_highlighter.ignore": true,
-							"color_scheme": "Terminus.hidden-color-scheme",
-							"default_dir": "/home/at/git/memusage/src",
-							"draw_centered": false,
-							"draw_indent_guides": false,
-							"draw_unicode_white_space": false,
-							"draw_white_space": "none",
-							"gutter": false,
-							"highlight_line": false,
-							"is_widget": true,
-							"result_base_dir": "/home/at/git/memusage/src",
-							"result_file_regex": ".*Parse error at unexpected token '(.*)'",
-							"result_line_regex": null,
-							"scroll_past_end": true,
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"terminus_view": true,
-							"terminus_view.args":
-							{
-								"auto_close": true,
-								"cancellable": false,
-								"cmd":
-								[
-									"/usr/bin/env",
-									"bash",
-									"-c",
-									"gretlcli -e \"/home/at/git/memusage/src/memusage_sample.inp\""
-								],
-								"config_name": "Login Shell",
-								"cwd": "/home/at/git/memusage/src",
-								"env":
-								{
-									"LANG": "de_DE.UTF-8",
-									"TERM": "linux",
-									"TERMINUS_SUBLIME": "1",
-									"TERM_PROGRAM": "Terminus-Sublime"
-								},
-								"file_regex": ".*Parse error at unexpected token '(.*)'",
-								"line_regex": null,
-								"panel_name": null,
-								"tag": null,
-								"timeit": true,
-								"title": "Gretl CLI"
-							},
-							"terminus_view.cancellable": false,
-							"terminus_view.key.ctrl+k": true,
-							"terminus_view.key.ctrl+p": true,
-							"terminus_view.natural_keyboard": true,
-							"terminus_view.panel_name": null,
-							"terminus_view.tag": null,
-							"terminus_view.viewport_y": 0.0,
-							"word_wrap": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 768,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								768,
-								768
-							]
-						],
-						"settings":
-						{
-							"__vi_external_disable": true,
-							"auto_complete": false,
-							"auto_complete_commit_on_tab": false,
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.clone_locations":
-							{
-							},
-							"bracket_highlighter.ignore": true,
-							"color_scheme": "Terminus.hidden-color-scheme",
-							"default_dir": "/home/at/git/memusage/src",
-							"draw_centered": false,
-							"draw_indent_guides": false,
-							"draw_unicode_white_space": false,
-							"draw_white_space": "none",
-							"gutter": false,
-							"highlight_line": false,
-							"is_widget": true,
-							"result_base_dir": "/home/at/git/memusage/src",
-							"result_file_regex": ".*Parse error at unexpected token '(.*)'",
-							"result_line_regex": null,
-							"scroll_past_end": true,
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"terminus_view": true,
-							"terminus_view.args":
-							{
-								"auto_close": true,
-								"cancellable": false,
-								"cmd":
-								[
-									"/usr/bin/env",
-									"bash",
-									"-c",
-									"gretlcli -e \"/home/at/git/memusage/src/memusage_sample.inp\""
-								],
-								"config_name": "Login Shell",
-								"cwd": "/home/at/git/memusage/src",
-								"env":
-								{
-									"LANG": "de_DE.UTF-8",
-									"TERM": "linux",
-									"TERMINUS_SUBLIME": "1",
-									"TERM_PROGRAM": "Terminus-Sublime"
-								},
-								"file_regex": ".*Parse error at unexpected token '(.*)'",
-								"line_regex": null,
-								"panel_name": null,
-								"tag": null,
-								"timeit": true,
-								"title": "Gretl CLI"
-							},
-							"terminus_view.cancellable": false,
-							"terminus_view.key.ctrl+k": true,
-							"terminus_view.key.ctrl+p": true,
-							"terminus_view.natural_keyboard": true,
-							"terminus_view.panel_name": null,
-							"terminus_view.tag": null,
-							"terminus_view.viewport_y": 0.0,
-							"word_wrap": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 726,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								726,
-								726
-							]
-						],
-						"settings":
-						{
-							"__vi_external_disable": true,
-							"auto_complete": false,
-							"auto_complete_commit_on_tab": false,
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.clone_locations":
-							{
-							},
-							"bracket_highlighter.ignore": true,
-							"color_scheme": "Terminus.hidden-color-scheme",
-							"default_dir": "/home/at/git/memusage/src",
-							"draw_centered": false,
-							"draw_indent_guides": false,
-							"draw_unicode_white_space": false,
-							"draw_white_space": "none",
-							"gutter": false,
-							"highlight_line": false,
-							"is_widget": true,
-							"result_base_dir": "/home/at/git/memusage/src",
-							"result_file_regex": ".*Parse error at unexpected token '(.*)'",
-							"result_line_regex": null,
-							"scroll_past_end": true,
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"terminus_view": true,
-							"terminus_view.args":
-							{
-								"auto_close": true,
-								"cancellable": false,
-								"cmd":
-								[
-									"/usr/bin/env",
-									"bash",
-									"-c",
-									"gretlcli -e \"/home/at/git/memusage/src/memusage_sample.inp\""
-								],
-								"config_name": "Login Shell",
-								"cwd": "/home/at/git/memusage/src",
-								"env":
-								{
-									"LANG": "de_DE.UTF-8",
-									"TERM": "linux",
-									"TERMINUS_SUBLIME": "1",
-									"TERM_PROGRAM": "Terminus-Sublime"
-								},
-								"file_regex": ".*Parse error at unexpected token '(.*)'",
-								"line_regex": null,
-								"panel_name": null,
-								"tag": null,
-								"timeit": true,
-								"title": "Gretl CLI"
-							},
-							"terminus_view.cancellable": false,
-							"terminus_view.key.ctrl+k": true,
-							"terminus_view.key.ctrl+p": true,
-							"terminus_view.natural_keyboard": true,
-							"terminus_view.panel_name": null,
-							"terminus_view.tag": null,
-							"terminus_view.viewport_y": 0.0,
-							"word_wrap": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
 				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 28.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -1011,18 +542,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.6,
 			1.0
 		],
 		"rows":
@@ -1048,7 +572,7 @@
 	"project": "memusage.sublime-project",
 	"replace":
 	{
-		"height": 73.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1086,7 +610,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 451.0,
+	"side_bar_width": 279.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
