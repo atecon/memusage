@@ -1,7 +1,8 @@
 set verbose off
 clear
 open denmark.gdt -q
-include memusage.gfn
+#include memusage.gfn
+include memusage.inp --force
 
 # Define some objects
 strings S = defarray("S1", "S2")
@@ -19,4 +20,11 @@ eval memusage_matrices(M, TRUE)
 eval memusage_series(LRM, TRUE)
 eval memusage_list(L, TRUE)
 eval memusage_bundle(b, TRUE)
+
+# Alternatively simply call the wrapper function memusage() for convenience purpose
+print "memusage"
+eval memusage(defbundle("web_page", web_page), TRUE)
+eval memusage(defbundle("LRM", LRM), TRUE)
+eval memusage(defbundle("M", M), TRUE)
+eval memusage(defbundle("S", S), TRUE)
 

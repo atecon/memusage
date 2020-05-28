@@ -1,3 +1,34 @@
+function scalar memusage (const bundle b,
+						const bool print_value[FALSE]))
+	/* Wrapper function passing a single variable of _any_ data type through a bundle. The data type of the passed variable is determined, and the corresponding function is called then.
+	return: scalar (memory size in MB) if valid bundle is passed, otherwise NA. */
+
+	if nelem(b) != 1
+		printf "\nWarning: The bundle must include a single item.\n"
+		return NA
+	else
+		string key = getkeys(b)[1]
+	endif
+
+	if typestr(typeof(b["@key"])) == "bundle"
+		return memusage_bundle(b["@key"], print_value)
+	elif typestr(typeof(b["@key"])) == "matrix"
+		return memusage_matrix(b["@key"], print_value)
+	elif typestr(typeof(b["@key"])) == "array"
+		catch scalar mb = memusage_matrices(b["@key"], print_value)
+		if $error
+			scalar mb = memusage_strings(b["@key"], print_value)
+		endif
+		return mb
+	elif typestr(typeof(b["@key"])) == "series"
+		return memusage_series(b["@key"], print_value)
+	elif typestr(typeof(b["@key"])) == "list"
+		return memusage_list(b["@key"], print_value)
+	elif typestr(typeof(b["@key"])) == "string"
+		return memusage_string(b["@key"], print_value)
+	endif
+end function
+
 function scalar memusage_bundle (const bundle b,
 								const bool print_value[FALSE])
 	/* Compute memory usage of all items in a bundle.
