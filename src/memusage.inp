@@ -15,11 +15,11 @@ function scalar memusage (const bundle b,
 	elif typestr(typeof(b["@key"])) == "matrix"
 		return memusage_matrix(b["@key"], print_value)
 	elif typestr(typeof(b["@key"])) == "array"
-		catch scalar mb = memusage_matrices(b["@key"], print_value)
-		if $error
-			scalar mb = memusage_strings(b["@key"], print_value)
+		if typestr(typeof(b["@key"][1])) == "matrix"
+			return memusage_matrices(b["@key"], print_value)
+		elif typestr(typeof(b["@key"][1])) == "string"
+			return memusage_strings(b["@key"], print_value)
 		endif
-		return mb
 	elif typestr(typeof(b["@key"])) == "series"
 		return memusage_series(b["@key"], print_value)
 	elif typestr(typeof(b["@key"])) == "list"

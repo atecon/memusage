@@ -1,11 +1,11 @@
 author = Artur Tarassow
 email = atecon@posteo.de
 version = 0.9
-date = 2020-05-22
+date = 2020-05-29
 description = Compute memory usage of gretl objects
 tags = C81
 min-version = 2020b
-public = memusage_string memusage_strings memusage_matrix memusage_matrices memusage_series memusage_list memusage_bundle
+public = memusage_string memusage_strings memusage_matrix memusage_matrices memusage_series memusage_list memusage_bundle memusage
 data-requirement = no-data-ok
 help = memusage_help.txt
 sample-script = memusage_sample.inp

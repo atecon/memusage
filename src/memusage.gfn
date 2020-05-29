@@ -3,7 +3,7 @@
 <gretl-function-package name="memusage" no-data-ok="true" minver="2020b">
 <author email="atecon@posteo.de">Artur Tarassow</author>
 <version>0.9</version>
-<date>2020-05-22</date>
+<date>2020-05-29</date>
 <description>Compute memory usage of gretl objects</description>
 <tags>C81</tags>
 <help>
@@ -13,7 +13,7 @@ Please ask questions and report bugs on the gretl mailing list if possible. Alte
 Source code and test script(s) can be found here:
 https://github.com/atecon/memusage
 
-The package comprises seven public functions for computing memory usage (in megabytes) of either a series, a list of series, a matrix, an array of matrices, a string, an array of strings and all items of a bundle.
+The package comprises eight public functions for computing memory usage (in megabytes) of either a series, a list of series, a matrix, an array of matrices, a string, an array of strings and all items of a bundle.
 
 
 PUBLIC FUNCTIONS:
@@ -88,6 +88,15 @@ Return:
 Computes the memory usage of an array of strings in megabytes. Note: If unicode formats is ASCII, the memory usage is one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character. We will always assume one by per character.
 -----------------------------------------------------------------------
 
+-----------------------------------------------------------------------
+Function:       memusage()
+Arguments:      bundle, bundle with a single item which may be either a series, list, matrix, matrices, string or strings.
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
+
+Return:
+Computes the memory usage of the passed item in megabytes.
+-----------------------------------------------------------------------
 
 
 Changelog:
@@ -206,6 +215,38 @@ print_memusage(argname(b), memory, &quot;bundle&quot;, print_value)
 return memory
 </code>
 </gretl-function>
+<gretl-function name="memusage" type="scalar">
+ <params count="2">
+  <param name="b" type="bundle" const="true"/>
+  <param name="print_value" type="bool" default="0" const="true"/>
+ </params>
+<code>/* Wrapper function passing a single variable of _any_ data type through a bundle. The data type of the passed variable is determined, and the corresponding function is called then.
+return: scalar (memory size in MB) if valid bundle is passed, otherwise NA. */
+if nelem(b) != 1
+  printf &quot;\nWarning: The bundle must include a single item.\n&quot;
+  return NA
+else
+  string key = getkeys(b)[1]
+endif
+if typestr(typeof(b[&quot;@key&quot;])) == &quot;bundle&quot;
+  return memusage_bundle(b[&quot;@key&quot;], print_value)
+elif typestr(typeof(b[&quot;@key&quot;])) == &quot;matrix&quot;
+  return memusage_matrix(b[&quot;@key&quot;], print_value)
+elif typestr(typeof(b[&quot;@key&quot;])) == &quot;array&quot;
+  if typestr(typeof(b[&quot;@key&quot;][1])) == &quot;matrix&quot;
+    return memusage_matrices(b[&quot;@key&quot;], print_value)
+  elif typestr(typeof(b[&quot;@key&quot;][1])) == &quot;string&quot;
+    return memusage_strings(b[&quot;@key&quot;], print_value)
+  endif
+elif typestr(typeof(b[&quot;@key&quot;])) == &quot;series&quot;
+  return memusage_series(b[&quot;@key&quot;], print_value)
+elif typestr(typeof(b[&quot;@key&quot;])) == &quot;list&quot;
+  return memusage_list(b[&quot;@key&quot;], print_value)
+elif typestr(typeof(b[&quot;@key&quot;])) == &quot;string&quot;
+  return memusage_string(b[&quot;@key&quot;], print_value)
+endif
+</code>
+</gretl-function>
 <gretl-function name="compute_memory" type="scalar" private="1">
  <params count="1">
   <param name="n_vals" type="int" const="true"/>
@@ -260,6 +301,12 @@ eval memusage_matrices(M, TRUE)
 eval memusage_series(LRM, TRUE)
 eval memusage_list(L, TRUE)
 eval memusage_bundle(b, TRUE)
+
+# Alternatively simply call the wrapper function memusage() for convenience purpose
+eval memusage(defbundle(&quot;web_page&quot;, web_page), TRUE)
+eval memusage(defbundle(&quot;LRM&quot;, LRM), TRUE)
+eval memusage(defbundle(&quot;M&quot;, M), TRUE)
+eval memusage(defbundle(&quot;S&quot;, S), TRUE)
 </sample-script>
 </gretl-function-package>
 </gretl-functions>

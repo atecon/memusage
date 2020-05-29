@@ -9,6 +9,28 @@ series x = normal()
 series y = normal()
 list L = y x
 
+function void test_memusage (const list L)
+    print "Start memusage()"
+
+    scalar memory_usage = (nelem(L) * nobs(L[1]) * 8) / 1024 / 1024
+    assert_equal_num(memusage(defbundle("L", L)), memory_usage)
+
+    scalar memory_usage = (1 * nobs(L[1]) * 8) / 1024 / 1024
+    assert_equal_num(memusage(defbundle("y", L[1])), memory_usage)
+
+    scalar memory_usage = (nelem(L) * nobs(L[1]) * 8) / 1024 / 1024
+    assert_equal_num(memusage(defbundle("M", {L})), memory_usage)
+
+    string s = "some string!"
+    scalar memory_usage = (strlen(s) * 8) / 1024 / 1024
+    assert_equal_num(memusage(defbundle("s", s)), memory_usage)
+
+    matrices M = defarray({L[1]}, {L[2]})
+    scalar memory_usage = (nelem(L) * nobs(L[1]) * 8) / 1024 / 1024
+    assert_equal_num(memusage(defbundle("M", M)), memory_usage)
+end function
+test_memusage(L)
+
 function void test_memusage_list (const list L)
     print "Start memusage_list()"
 
@@ -38,9 +60,7 @@ function void test_memusage_matrices (const list L)
     print "Start memusage_matrices()"
 
     matrices M = defarray({L[1]}, {L[2]})
-    #eval nelem(M)
     scalar memory_usage = (nelem(L) * nobs(L[1]) * 8) / 1024 / 1024
-    #memory_usage
     assert_equal_num(memusage_matrices(M), memory_usage)
 end function
 test_memusage_matrices(L)
@@ -90,4 +110,3 @@ test_memusage_bundle(L)
 
 
 printf "\nAll tests succesfully finished.\n"
-

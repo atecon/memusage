@@ -18,4 +18,3 @@ else
   echo "Failure: Tests not passed for '${PROJECT}'." >&2
   exit 1
 fi
-
