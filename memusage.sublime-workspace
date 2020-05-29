@@ -4,12 +4,32 @@
 		"selected_items":
 		[
 			[
-				"memusage_strin",
-				"memusage_string\t(memusage.inp)"
+				"typ",
+				"typeof\tabc"
+			],
+			[
+				"type",
+				"typeof\t(memusage.inp)"
+			],
+			[
+				"ty",
+				"typeof\t(memusage.inp)"
+			],
+			[
+				"str",
+				"string\tabc"
+			],
+			[
+				"pr",
+				"print_value\tabc"
 			],
 			[
 				"mem",
-				"memory\tabc"
+				"memusage\tabc"
+			],
+			[
+				"memusage_strin",
+				"memusage_string\t(memusage.inp)"
 			],
 			[
 				"me",
@@ -18,10 +38,6 @@
 			[
 				"ass",
 				"assert_equal_num\tabc"
-			],
-			[
-				"pr",
-				"print_value\tabc"
 			],
 			[
 				"en",
@@ -132,10 +148,6 @@
 				"countries\t(holidays.inp)"
 			],
 			[
-				"str",
-				"string\t(holidays.inp)"
-			],
-			[
 				"a",
 				"advent_4\tabc"
 			],
@@ -235,14 +247,35 @@
 			"file": "src/memusage_help.txt",
 			"settings":
 			{
-				"buffer_size": 3612,
+				"buffer_size": 4069,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "",
+	"build_system": "Packages/User/build-systems/Gretl.sublime-build",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"Packages/User/build-systems/Gretl.sublime-build",
+					""
+				],
+				[
+					"Packages/User/build-systems/Gretl.sublime-build",
+					"Batch mode"
+				],
+				[
+					"Packages/User/build-systems/Gretl.sublime-build",
+					"REPL"
+				]
+			],
+			[
+				"Packages/User/build-systems/Gretl.sublime-build",
+				""
+			]
+		]
 	],
 	"build_varint": "",
 	"command_palette":
@@ -251,6 +284,18 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"rep",
+				"Build With: Gretl - REPL"
+			],
+			[
+				"brac",
+				"BracketHighlighter: Toggle High Visibility Mode"
+			],
+			[
+				"bui",
+				"Build With: Gretl - REPL"
+			],
 			[
 				"install",
 				"Package Control: Install Package"
@@ -302,10 +347,6 @@
 			[
 				"bracketh",
 				"BracketHighlighter: Settings"
-			],
-			[
-				"brac",
-				"BracketHighlighter: Settings"
 			]
 		],
 		"width": 0.0
@@ -339,10 +380,12 @@
 	],
 	"file_history":
 	[
-		"/home/at/git/memusage/src/memusage.inp",
 		"/home/at/git/memusage/src/memusage_sample.inp",
 		"/home/at/git/memusage/tests/run_tests.inp",
 		"/home/at/git/memusage/src/memusage.spec",
+		"/home/at/git/memusage/src/memusage.inp",
+		"/home/at/git/memusage/run_tests.sh",
+		"/home/at/git/docker_gretl/Dockerfile",
 		"/home/at/git/memusage/src/Makefile",
 		"/home/at/git/memusage/src/memusage_help.txt",
 		"/home/at/.config/sublime-text-3/Packages/User/hansl.sublime-syntax",
@@ -378,7 +421,7 @@
 	],
 	"find":
 	{
-		"height": 26.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -392,6 +435,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"nelem(",
+			"strlen",
+			"const bundle b",
 			"memusage_series_matrix_string",
 			"test_memusage_list",
 			"eval",
@@ -426,15 +472,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3612,
+						"buffer_size": 4069,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								489,
-								489
+								3015,
+								3015
 							]
 						],
 						"settings":
@@ -457,41 +503,21 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
 								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
@@ -502,21 +528,41 @@
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content"
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
 							],
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1159.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -564,11 +610,15 @@
 	{
 		"height": 0.0
 	},
+	"output.exec":
+	{
+		"height": 434.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "Packages/User/build-systems/gretlcli_interact.sublime-build",
+	"pinned_build_system": "Packages/ShellScript/ShellScript.sublime-build",
 	"project": "memusage.sublime-project",
 	"replace":
 	{
