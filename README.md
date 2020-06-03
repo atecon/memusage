@@ -46,10 +46,8 @@ and scalar ```mem``` refers to the value ```24.5483```.
 
 
 
-Public functions
-----
+# Public functions
 
------------------------------------------------------------------------
 Function: *memusage()*
 
 Arguments:
@@ -77,6 +75,7 @@ Return:
 
 -----------------------------------------------------------------------
 Function: *memusage_matrices()*
+
 Arguments:
 1. matrices, input array of matrices
 2. bool, print value in megabytes
@@ -89,6 +88,7 @@ Return:
 
 -----------------------------------------------------------------------
 Function: *memusage_series()*
+
 Arguments:
 1. series, input series
 2. bool, print value in megabytes
@@ -139,6 +139,7 @@ Return:
 * Computes the memory usage of an array of strings in megabytes. Note: If unicode formats is ASCII, the memory usage is one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character. We will always assume one by per character.
 
 
-Changelog:
+-----------------------------------------------------------------------
+## Changelog:
 - v1.0, June 2020:
 	+ initial release
