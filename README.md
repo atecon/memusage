@@ -50,67 +50,93 @@ Public functions
 ----
 
 -----------------------------------------------------------------------
-Function:       memusage()
-Arguments:      bundle, input bundle
-                bool, print value in megabytes
-Output:	        scalar, memory use in megabytes
+Function: *memusage()*
+
+Arguments:
+1. bundle, input bundle
+2. bool, print value in megabytes
+		
+Output:
+* scalar, memory use in megabytes
 
 Return:
-Computes the memory usage of all items of a bundle in megabytes.
+* Computes the memory usage of all items of a bundle in megabytes.
 
 -----------------------------------------------------------------------
-Function:       memusage_matrix()
-Arguments:      matrix, input matrix
-                bool, print value in megabytes
-Output:	        scalar, memory use in megabytes
+Function: *memusage_matrix()*
+
+Arguments:
+1. matrix, input matrix
+2. bool, print value in megabytes
+
+Output:
+* scalar, memory use in megabytes
 
 Return:
-Computes the memory usage of a matrix in megabytes.
+* Computes the memory usage of a matrix in megabytes.
 
 -----------------------------------------------------------------------
-Function:       memusage_matrices()
-Arguments:      matrices, input array of matrices
-                bool, print value in megabytes
-Output:	        scalar, memory use in megabytes
+Function: *memusage_matrices()*
+Arguments:
+1. matrices, input array of matrices
+2. bool, print value in megabytes
+
+Output:
+* scalar, memory use in megabytes
 
 Return:
-Computes the memory usage of an array of matrices in megabytes.
+* Computes the memory usage of an array of matrices in megabytes.
 
 -----------------------------------------------------------------------
-Function:       memusage_series()
-Arguments:      series, input series
-                bool, print value in megabytes
-Output:	        scalar, memory use in megabytes
+Function: *memusage_series()*
+Arguments:
+1. series, input series
+2. bool, print value in megabytes
+
+Output:
+* scalar, memory use in megabytes
 
 Return:
-Computes the memory usage of a series in megabytes.
+* Computes the memory usage of a series in megabytes.
 
 -----------------------------------------------------------------------
-Function:       memusage_list()
-Arguments:      list, list of series
-                bool, print value in megabytes
-Output:	        scalar, memory use in megabytes
+Function: *memusage_list()*
+
+Arguments:
+1. list, list of series
+2. bool, print value in megabytes
+
+Output:
+* scalar, memory use in megabytes
 
 Return:
-Computes the memory usage of a list of series in megabytes.
+'Computes the memory usage of a list of series in megabytes.
 
 -----------------------------------------------------------------------
-Function:       memusage_string()
-Arguments:      string, input string
-                bool, print value in megabytes
-Output:	        scalar, memory use in megabytes
+Function: *memusage_string()*
+
+Arguments:
+1. string, input string
+2. bool, print value in megabytes
+
+Output:
+* scalar, memory use in megabytes
 
 Return:
-Computes the memory usage of a string in megabytes. Note: If unicode formats is ASCII, the memory usage is one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character. We will always assume one by per character.
+* Computes the memory usage of a string in megabytes. Note: If unicode formats is ASCII, the memory usage is one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character. We will always assume one by per character.
 
 -----------------------------------------------------------------------
-Function:       memusage_strings()
-Arguments:      strings, array of input strings
-                bool, print value in megabytes
-Output:	        scalar, memory use in megabytes
+Function: *memusage_strings()*
+
+Arguments:
+1. strings, array of input strings
+2. bool, print value in megabytes
+
+Output:
+* scalar, memory use in megabytes
 
 Return:
-Computes the memory usage of an array of strings in megabytes. Note: If unicode formats is ASCII, the memory usage is one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character. We will always assume one by per character.
+* Computes the memory usage of an array of strings in megabytes. Note: If unicode formats is ASCII, the memory usage is one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character. We will always assume one by per character.
 
 
 Changelog:
