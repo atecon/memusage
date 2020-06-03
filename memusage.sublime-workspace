@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"mem",
+				"memory_usage5\tabc"
+			],
+			[
 				"typ",
 				"typeof\tabc"
 			],
@@ -22,10 +26,6 @@
 			[
 				"pr",
 				"print_value\tabc"
-			],
-			[
-				"mem",
-				"memusage\tabc"
 			],
 			[
 				"memusage_strin",
@@ -243,19 +243,30 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "src/memusage_help.txt",
-			"settings":
-			{
-				"buffer_size": 4069,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
-	"build_system": "Packages/User/build-systems/Gretl.sublime-build",
+	"build_system": "Packages/Hansl-Gretl-Language/build-systems/Gretl.sublime-build",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"Packages/Hansl-Gretl-Language/build-systems/Gretl.sublime-build",
+					""
+				],
+				[
+					"Packages/Hansl-Gretl-Language/build-systems/Gretl.sublime-build",
+					"Batch mode"
+				],
+				[
+					"Packages/Hansl-Gretl-Language/build-systems/Gretl.sublime-build",
+					"REPL"
+				]
+			],
+			[
+				"Packages/Hansl-Gretl-Language/build-systems/Gretl.sublime-build",
+				"REPL"
+			]
+		],
 		[
 			[
 				[
@@ -284,6 +295,26 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"View",
+				"View Package File"
+			],
+			[
+				"Gret",
+				"Build With: Gretl"
+			],
+			[
+				"REPL",
+				"Build With: Gretl - REPL"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
 			[
 				"rep",
 				"Build With: Gretl - REPL"
@@ -381,13 +412,15 @@
 	"file_history":
 	[
 		"/home/at/git/memusage/src/memusage_sample.inp",
+		"/home/at/git/memusage/src/memusage_help.txt",
 		"/home/at/git/memusage/tests/run_tests.inp",
-		"/home/at/git/memusage/src/memusage.spec",
 		"/home/at/git/memusage/src/memusage.inp",
+		"/home/at/git/memusage/src/memusage.spec",
 		"/home/at/git/memusage/run_tests.sh",
+		"/home/at/.config/sublime-text-3/Packages/Default/arithmetic.py",
+		"/home/at/git/memusage/src/session.inp",
 		"/home/at/git/docker_gretl/Dockerfile",
 		"/home/at/git/memusage/src/Makefile",
-		"/home/at/git/memusage/src/memusage_help.txt",
 		"/home/at/.config/sublime-text-3/Packages/User/hansl.sublime-syntax",
 		"/home/at/.config/sublime-text-3/Packages/User/ghosts.inp",
 		"/home/at/.config/sublime-text-3/Packages/User/BAK_hansl.sublime-syntax",
@@ -421,7 +454,7 @@
 	],
 	"find":
 	{
-		"height": 39.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{
@@ -435,6 +468,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"return ",
+			"@key",
 			"nelem(",
 			"strlen",
 			"const bundle b",
@@ -463,111 +498,13 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/memusage_help.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4069,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3015,
-								3015
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content"
-							],
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1159.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
+			]
+		},
+		{
+			"sheets":
+			[
 			]
 		}
 	],
@@ -588,11 +525,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.824150101654,
 			1.0
 		],
 		"rows":
@@ -618,7 +562,7 @@
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "Packages/ShellScript/ShellScript.sublime-build",
+	"pinned_build_system": "Packages/Hansl-Gretl-Language/build-systems/Gretl.sublime-build",
 	"project": "memusage.sublime-project",
 	"replace":
 	{
@@ -660,7 +604,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 279.0,
+	"side_bar_width": 259.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
