@@ -2,8 +2,8 @@
 <gretl-functions>
 <gretl-function-package name="memusage" no-data-ok="true" minver="2020b">
 <author email="atecon@posteo.de">Artur Tarassow</author>
-<version>0.9</version>
-<date>2020-05-29</date>
+<version>1.0</version>
+<date>2020-06-03</date>
 <description>Compute memory usage of gretl objects</description>
 <tags>C81</tags>
 <help>
@@ -13,10 +13,21 @@ Please ask questions and report bugs on the gretl mailing list if possible. Alte
 Source code and test script(s) can be found here:
 https://github.com/atecon/memusage
 
-The package comprises eight public functions for computing memory usage (in megabytes) of either a series, a list of series, a matrix, an array of matrices, a string, an array of strings and all items of a bundle.
+The package comprises seven public functions for computing memory usage (in megabytes) of either a series, a list of series, a matrix, an array of matrices, a string, an array of strings and all items of a bundle comprising different data types.
 
 
 PUBLIC FUNCTIONS:
+
+-----------------------------------------------------------------------
+Function:       memusage()
+Arguments:      bundle, input bundle
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
+
+Return:
+Computes the memory usage of all items of a bundle in megabytes.
+-----------------------------------------------------------------------
+
 -----------------------------------------------------------------------
 Function:       memusage_matrix()
 Arguments:      matrix, input matrix
@@ -57,15 +68,6 @@ Return:
 Computes the memory usage of a list of series in megabytes.
 -----------------------------------------------------------------------
 
------------------------------------------------------------------------
-Function:       memusage_bundle()
-Arguments:      bundle, input bundle
-                bool, print value in megabytes
-Output:	        scalar, memory use in megabytes
-
-Return:
-Computes the memory usage of all items of a bundle in megabytes.
------------------------------------------------------------------------
 
 -----------------------------------------------------------------------
 Function:       memusage_string()
@@ -88,19 +90,9 @@ Return:
 Computes the memory usage of an array of strings in megabytes. Note: If unicode formats is ASCII, the memory usage is one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character. We will always assume one by per character.
 -----------------------------------------------------------------------
 
------------------------------------------------------------------------
-Function:       memusage()
-Arguments:      bundle, bundle with a single item which may be either a series, list, matrix, matrices, string or strings.
-                bool, print value in megabytes
-Output:	        scalar, memory use in megabytes
-
-Return:
-Computes the memory usage of the passed item in megabytes.
------------------------------------------------------------------------
-
 
 Changelog:
-- v0.9, May 2020:
+- v1.0, June 2020:
 	+ initial release
 </help>
 <gretl-function name="memusage_string" type="scalar">
@@ -188,63 +180,39 @@ print_memusage(argname(L), memory, &quot;list&quot;, print_value)
 return memory
 </code>
 </gretl-function>
-<gretl-function name="memusage_bundle" type="scalar">
- <params count="2">
-  <param name="b" type="bundle" const="true"/>
-  <param name="print_value" type="bool" default="0" const="true"/>
- </params>
-<code>/* Compute memory usage of all items in a bundle.
-return: scalar, in MB */
-scalar memory = 0
-loop foreach i b
-  if typeof(b[&quot;$i&quot;]) == 1
-    memory += compute_memory(1)
-  elif typeof(b[&quot;$i&quot;]) == 2
-    memory += memusage_series(b[&quot;$i&quot;])
-  elif typeof(b[&quot;$i&quot;]) == 3
-    memory += memusage_matrix(b[&quot;$i&quot;])
-  elif typeof(b[&quot;$i&quot;]) == 4
-    memory += memusage_string(b[&quot;$i&quot;])
-  elif typeof(b[&quot;$i&quot;]) == 6
-    memory += memusage_strings(b[&quot;$i&quot;])
-  elif typeof(b[&quot;$i&quot;]) == 7
-    memory += memusage_list(b[&quot;$i&quot;])
-  endif
-endloop
-print_memusage(argname(b), memory, &quot;bundle&quot;, print_value)
-return memory
-</code>
-</gretl-function>
 <gretl-function name="memusage" type="scalar">
  <params count="2">
   <param name="b" type="bundle" const="true"/>
   <param name="print_value" type="bool" default="0" const="true"/>
  </params>
-<code>/* Wrapper function passing a single variable of _any_ data type through a bundle. The data type of the passed variable is determined, and the corresponding function is called then.
+<code>/* Compute memory usage of all items in a bundle. The data type of each item is determined, and the corresponding function is called then.
 return: scalar (memory size in MB) if valid bundle is passed, otherwise NA. */
-if nelem(b) != 1
-  printf &quot;\nWarning: The bundle must include a single item.\n&quot;
+if nelem(b) == 0
+  printf &quot;\nWarning: The bundle must include at least a single item.\n&quot;
   return NA
-else
-  string key = getkeys(b)[1]
 endif
-if typestr(typeof(b[&quot;@key&quot;])) == &quot;bundle&quot;
-  return memusage_bundle(b[&quot;@key&quot;], print_value)
-elif typestr(typeof(b[&quot;@key&quot;])) == &quot;matrix&quot;
-  return memusage_matrix(b[&quot;@key&quot;], print_value)
-elif typestr(typeof(b[&quot;@key&quot;])) == &quot;array&quot;
-  if typestr(typeof(b[&quot;@key&quot;][1])) == &quot;matrix&quot;
-    return memusage_matrices(b[&quot;@key&quot;], print_value)
-  elif typestr(typeof(b[&quot;@key&quot;][1])) == &quot;string&quot;
-    return memusage_strings(b[&quot;@key&quot;], print_value)
+scalar memory = 0
+loop foreach i b
+  if typestr(typeof(b[&quot;$i&quot;])) == &quot;bundle&quot;
+    printf &quot;\nWarning: Nested bundles are not supported, yet. Ignored.\n&quot;
+  elif typestr(typeof(b[&quot;$i&quot;])) == &quot;matrix&quot;
+    memory += memusage_matrix(b[&quot;$i&quot;], print_value)
+  elif typestr(typeof(b[&quot;$i&quot;])) == &quot;array&quot;
+    if typestr(typeof(b[&quot;$i&quot;][1])) == &quot;matrix&quot;
+      memory += memusage_matrices(b[&quot;$i&quot;], print_value)
+    elif typestr(typeof(b[&quot;$i&quot;][1])) == &quot;string&quot;
+      memory += memusage_strings(b[&quot;$i&quot;], print_value)
+    endif
+  elif typestr(typeof(b[&quot;$i&quot;])) == &quot;series&quot;
+    memory += memusage_series(b[&quot;$i&quot;], print_value)
+  elif typestr(typeof(b[&quot;$i&quot;])) == &quot;list&quot;
+    memory += memusage_list(b[&quot;$i&quot;], print_value)
+  elif typestr(typeof(b[&quot;$i&quot;])) == &quot;string&quot;
+    memory += memusage_string(b[&quot;$i&quot;], print_value)
   endif
-elif typestr(typeof(b[&quot;@key&quot;])) == &quot;series&quot;
-  return memusage_series(b[&quot;@key&quot;], print_value)
-elif typestr(typeof(b[&quot;@key&quot;])) == &quot;list&quot;
-  return memusage_list(b[&quot;@key&quot;], print_value)
-elif typestr(typeof(b[&quot;@key&quot;])) == &quot;string&quot;
-  return memusage_string(b[&quot;@key&quot;], print_value)
-endif
+endloop
+print_memusage(argname(b), memory, &quot;bundle&quot;, print_value)
+return memory
 </code>
 </gretl-function>
 <gretl-function name="compute_memory" type="scalar" private="1">
@@ -293,20 +261,16 @@ string web_page = readfile(&quot;http://gretl.sourceforge.net/&quot;)
 bundle b = defbundle(&quot;S&quot;, S, &quot;m&quot;, m, &quot;web_page&quot;, web_page, &quot;LRM&quot;, LRM)
 list L = LRM LRY IDE IBO
 
-# Compute memory usage
+# Generic function consuming a bundle with various variables
+eval memusage(b, TRUE)		# returns total memory of all bundle items
+
+# Alternatively call a function for a specific type of variable
 eval memusage_string(web_page, TRUE)
 eval memusage_strings(S, 1)
 eval memusage_matrix(m, TRUE)
 eval memusage_matrices(M, TRUE)
 eval memusage_series(LRM, TRUE)
 eval memusage_list(L, TRUE)
-eval memusage_bundle(b, TRUE)
-
-# Alternatively simply call the wrapper function memusage() for convenience purpose
-eval memusage(defbundle(&quot;web_page&quot;, web_page), TRUE)
-eval memusage(defbundle(&quot;LRM&quot;, LRM), TRUE)
-eval memusage(defbundle(&quot;M&quot;, M), TRUE)
-eval memusage(defbundle(&quot;S&quot;, S), TRUE)
 </sample-script>
 </gretl-function-package>
 </gretl-functions>

@@ -1,53 +1,31 @@
 function scalar memusage (const bundle b,
 						const bool print_value[FALSE]))
-	/* Wrapper function passing a single variable of _any_ data type through a bundle. The data type of the passed variable is determined, and the corresponding function is called then.
+	/* Compute memory usage of all items in a bundle. The data type of each item is determined, and the corresponding function is called then.
 	return: scalar (memory size in MB) if valid bundle is passed, otherwise NA. */
 
-	if nelem(b) != 1
-		printf "\nWarning: The bundle must include a single item.\n"
+	if nelem(b) == 0
+		printf "\nWarning: The bundle must include at least a single item.\n"
 		return NA
-	else
-		string key = getkeys(b)[1]
 	endif
-
-	if typestr(typeof(b["@key"])) == "bundle"
-		return memusage_bundle(b["@key"], print_value)
-	elif typestr(typeof(b["@key"])) == "matrix"
-		return memusage_matrix(b["@key"], print_value)
-	elif typestr(typeof(b["@key"])) == "array"
-		if typestr(typeof(b["@key"][1])) == "matrix"
-			return memusage_matrices(b["@key"], print_value)
-		elif typestr(typeof(b["@key"][1])) == "string"
-			return memusage_strings(b["@key"], print_value)
-		endif
-	elif typestr(typeof(b["@key"])) == "series"
-		return memusage_series(b["@key"], print_value)
-	elif typestr(typeof(b["@key"])) == "list"
-		return memusage_list(b["@key"], print_value)
-	elif typestr(typeof(b["@key"])) == "string"
-		return memusage_string(b["@key"], print_value)
-	endif
-end function
-
-function scalar memusage_bundle (const bundle b,
-								const bool print_value[FALSE])
-	/* Compute memory usage of all items in a bundle.
-	return: scalar, in MB */
-
 	scalar memory = 0
+
 	loop foreach i b
-		if typeof(b["$i"]) == 1
-			memory += compute_memory(1)
-		elif typeof(b["$i"]) == 2
-			memory += memusage_series(b["$i"])
-		elif typeof(b["$i"]) == 3
-			memory += memusage_matrix(b["$i"])
-		elif typeof(b["$i"]) == 4
-			memory += memusage_string(b["$i"])
-		elif typeof(b["$i"]) == 6
-			memory += memusage_strings(b["$i"])
-		elif typeof(b["$i"]) == 7
-			memory += memusage_list(b["$i"])
+		if typestr(typeof(b["$i"])) == "bundle"
+			printf "\nWarning: Nested bundles are not supported, yet. Ignored.\n"
+		elif typestr(typeof(b["$i"])) == "matrix"
+			memory += memusage_matrix(b["$i"], print_value)
+		elif typestr(typeof(b["$i"])) == "array"
+			if typestr(typeof(b["$i"][1])) == "matrix"
+				memory += memusage_matrices(b["$i"], print_value)
+			elif typestr(typeof(b["$i"][1])) == "string"
+				memory += memusage_strings(b["$i"], print_value)
+			endif
+		elif typestr(typeof(b["$i"])) == "series"
+			memory += memusage_series(b["$i"], print_value)
+		elif typestr(typeof(b["$i"])) == "list"
+			memory += memusage_list(b["$i"], print_value)
+		elif typestr(typeof(b["$i"])) == "string"
+			memory += memusage_string(b["$i"], print_value)
 		endif
 	endloop
 

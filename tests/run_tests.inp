@@ -12,24 +12,30 @@ list L = y x
 function void test_memusage (const list L)
     print "Start memusage()"
 
-    scalar memory_usage = (nelem(L) * nobs(L[1]) * 8) / 1024 / 1024
-    assert_equal_num(memusage(defbundle("L", L)), memory_usage)
+    scalar memory_usage1 = (nelem(L) * nobs(L[1]) * 8) / 1024 / 1024
+    assert_equal_num(memusage(defbundle("L", L)), memory_usage1)
 
-    scalar memory_usage = (1 * nobs(L[1]) * 8) / 1024 / 1024
-    assert_equal_num(memusage(defbundle("y", L[1])), memory_usage)
+    scalar memory_usage2 = (1 * nobs(L[1]) * 8) / 1024 / 1024
+    assert_equal_num(memusage(defbundle("y", L[1])), memory_usage2)
 
-    scalar memory_usage = (nelem(L) * nobs(L[1]) * 8) / 1024 / 1024
-    assert_equal_num(memusage(defbundle("M", {L})), memory_usage)
+    scalar memory_usage3 = (nelem(L) * nobs(L[1]) * 8) / 1024 / 1024
+    assert_equal_num(memusage(defbundle("M", {L})), memory_usage3)
 
     string s = "some string!"
-    scalar memory_usage = (strlen(s) * 8) / 1024 / 1024
-    assert_equal_num(memusage(defbundle("s", s)), memory_usage)
+    scalar memory_usage4 = (strlen(s) * 8) / 1024 / 1024
+    assert_equal_num(memusage(defbundle("s", s)), memory_usage4)
 
     matrices M = defarray({L[1]}, {L[2]})
-    scalar memory_usage = (nelem(L) * nobs(L[1]) * 8) / 1024 / 1024
-    assert_equal_num(memusage(defbundle("M", M)), memory_usage)
+    scalar memory_usage5 = (nelem(L) * nobs(L[1]) * 8) / 1024 / 1024
+    assert_equal_num(memusage(defbundle("M", M)), memory_usage5)
+
+    # Put all items into a single bundle
+    scalar total_memory = memory_usage1 + memory_usage2 + memory_usage3 + memory_usage4 + memory_usage5
+    assert_equal_num(memusage(\
+        defbundle("M", M, "s", s, "m", {L}, "y", L[1], "L", L)), total_memory)
 end function
 test_memusage(L)
+
 
 function void test_memusage_list (const list L)
     print "Start memusage_list()"
@@ -93,20 +99,6 @@ function void test_memusage_strings (void)
 end function
 test_memusage_strings()
 */
-
-function void test_memusage_bundle (const list L)
-    print "Start memusage_bundle()"
-
-    scalar memory_usage = (nelem({L}) * 8) / 1024 / 1024
-    memory_usage += (nelem({L[1]}) * 8) / 1024 / 1024
-    memory_usage += (nelem({L}) * 8) / 1024 / 1024
-    string s = "some string!"
-    memory_usage += (strlen(s) * 8) / 1024 / 1024
-
-    bundle b = defbundle("L", L, "L1", L[1], "m", {L}, "s", s)
-    assert_equal_num(memusage_bundle(b), memory_usage)
-end function
-test_memusage_bundle(L)
 
 
 printf "\nAll tests succesfully finished.\n"

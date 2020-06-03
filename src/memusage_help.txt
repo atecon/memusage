@@ -4,10 +4,21 @@ Please ask questions and report bugs on the gretl mailing list if possible. Alte
 Source code and test script(s) can be found here:
 https://github.com/atecon/memusage
 
-The package comprises eight public functions for computing memory usage (in megabytes) of either a series, a list of series, a matrix, an array of matrices, a string, an array of strings and all items of a bundle.
+The package comprises seven public functions for computing memory usage (in megabytes) of either a series, a list of series, a matrix, an array of matrices, a string, an array of strings and all items of a bundle comprising different data types.
 
 
 PUBLIC FUNCTIONS:
+
+-----------------------------------------------------------------------
+Function:       memusage()
+Arguments:      bundle, input bundle
+                bool, print value in megabytes
+Output:	        scalar, memory use in megabytes
+
+Return:
+Computes the memory usage of all items of a bundle in megabytes.
+-----------------------------------------------------------------------
+
 -----------------------------------------------------------------------
 Function:       memusage_matrix()
 Arguments:      matrix, input matrix
@@ -48,15 +59,6 @@ Return:
 Computes the memory usage of a list of series in megabytes.
 -----------------------------------------------------------------------
 
------------------------------------------------------------------------
-Function:       memusage_bundle()
-Arguments:      bundle, input bundle
-                bool, print value in megabytes
-Output:	        scalar, memory use in megabytes
-
-Return:
-Computes the memory usage of all items of a bundle in megabytes.
------------------------------------------------------------------------
 
 -----------------------------------------------------------------------
 Function:       memusage_string()
@@ -79,17 +81,7 @@ Return:
 Computes the memory usage of an array of strings in megabytes. Note: If unicode formats is ASCII, the memory usage is one byte per character; if UTF-8 it depends, at least one byte but up to 4 per character. We will always assume one by per character.
 -----------------------------------------------------------------------
 
------------------------------------------------------------------------
-Function:       memusage()
-Arguments:      bundle, bundle with a single item which may be either a series, list, matrix, matrices, string or strings.
-                bool, print value in megabytes
-Output:	        scalar, memory use in megabytes
-
-Return:
-Computes the memory usage of the passed item in megabytes.
------------------------------------------------------------------------
-
 
 Changelog:
-- v0.9, May 2020:
+- v1.0, June 2020:
 	+ initial release

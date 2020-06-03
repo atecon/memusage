@@ -11,17 +11,13 @@ string web_page = readfile("http://gretl.sourceforge.net/")
 bundle b = defbundle("S", S, "m", m, "web_page", web_page, "LRM", LRM)
 list L = LRM LRY IDE IBO
 
-# Compute memory usage
+# Generic function consuming a bundle with various variables
+eval memusage(b, TRUE)		# returns total memory of all bundle items
+
+# Alternatively call a function for a specific type of variable
 eval memusage_string(web_page, TRUE)
 eval memusage_strings(S, 1)
 eval memusage_matrix(m, TRUE)
 eval memusage_matrices(M, TRUE)
 eval memusage_series(LRM, TRUE)
 eval memusage_list(L, TRUE)
-eval memusage_bundle(b, TRUE)
-
-# Alternatively simply call the wrapper function memusage() for convenience purpose
-eval memusage(defbundle("web_page", web_page), TRUE)
-eval memusage(defbundle("LRM", LRM), TRUE)
-eval memusage(defbundle("M", M), TRUE)
-eval memusage(defbundle("S", S), TRUE)
